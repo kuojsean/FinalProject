@@ -47,6 +47,7 @@ public class Screen extends JPanel implements Runnable
 		random = new Random();
 		
 		snake = new ArrayList<SnakePart>();
+		apples = new ArrayList<Food>();
 		
 		start();
 	}
@@ -75,10 +76,15 @@ public class Screen extends JPanel implements Runnable
 				size++;
 				apples.remove(index);
 				index--;
+				tickDifficulty -= 500;
 			}
 		}
 		
 		ticks++;
+		
+		if(tickDifficulty == 0)
+		{
+			tickDifficulty = 500;
 		if (ticks > tickDifficulty)
 		{
 			if(right)
@@ -108,6 +114,8 @@ public class Screen extends JPanel implements Runnable
 				snake.remove(0);
 			}
 		}
+		}
+		
 
 	}
 	

@@ -14,6 +14,8 @@ public class Food
 	{
 		this.x = x;
 		this.y = y;
+		width = tileSize;
+		height = tileSize;
 	}
 	
 	public void tick()
