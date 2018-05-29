@@ -1,7 +1,8 @@
 package snake.model;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 
 public class Screen extends JPanel implements Runnable
@@ -12,21 +13,33 @@ public class Screen extends JPanel implements Runnable
 	private Thread thread;
 	private boolean running = false;
 	
+	private SnakePart body;
+	private ArrayList<SnakePart> snake;
+	
+	private int x = 10;
+	private int y = 10;		
+	private int size = 5;
+	
 	public Screen()
 	{
 		setPreferredSize( new Dimension(width,height));
+		
+		snake = new ArrayList<SnakePart>();
 		
 		start();
 	}
 	
 	public void tick()
 	{
-		
+		if(snake.size() == 0)
+		{
+			body = new SnakePart(x, y, 10);
+		}
 	}
 	
 	public void paint(Graphics graphics)
 	{
-		
+
 	}
 	
 	public void start()
