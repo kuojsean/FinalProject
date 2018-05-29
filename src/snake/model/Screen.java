@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
+import snake.view.*;
 
 
 public class Screen extends JPanel implements Runnable
@@ -15,6 +16,8 @@ public class Screen extends JPanel implements Runnable
 	private Thread thread;
 	private boolean running = false;
 	
+	private PopupDisplay display;
+	
 	private SnakePart body;
 	private ArrayList<SnakePart> snake;
 	
@@ -24,13 +27,15 @@ public class Screen extends JPanel implements Runnable
 	
 	private Random random;
 	
-	private boolean right = false;
+	private boolean right = true;
 	private boolean left = false;
 	private boolean up = false;
 	private boolean down = false;
 	
 	private Food apple;
 	private ArrayList<Food> apples;
+	
+	private int score = 0;
 	
 	private int ticks = 0;
 	private int tickDifficulty = 600000;
@@ -77,14 +82,28 @@ public class Screen extends JPanel implements Runnable
 				apples.remove(index);
 				index--;
 				tickDifficulty -= 500;
+				score ++;
 			}
+		}
+		
+		for(int index = 0; index < snake.size(); index++)
+		{
+			if(x == snake.get(index).getX() && y == snake.get(index).getY())
+			{
+				if(index != snake.size() - 1) 
+				{
+					stop();
+				}
+			}
+		}
+		
+		if (x < 0 || x > 127 || y < 0 || y > 71)
+		{
+			stop();
 		}
 		
 		ticks++;
 		
-		if(tickDifficulty == 0)
-		{
-			tickDifficulty = 500;
 		if (ticks > tickDifficulty)
 		{
 			if(right)
@@ -114,7 +133,8 @@ public class Screen extends JPanel implements Runnable
 				snake.remove(0);
 			}
 		}
-		}
+		
+
 		
 
 	}
@@ -141,7 +161,20 @@ public class Screen extends JPanel implements Runnable
 	
 	public void stop()
 	{
+		running = false;
+		try
+		{
+			thread.join();
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
+		display.displayText("Game Over");
+		display.displayText("Your Score is: " + score);
+		score = 0;
+		tickDifficulty = 600000;
 	}
 	
 	
