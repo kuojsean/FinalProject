@@ -22,10 +22,15 @@ public class Screen extends JPanel implements Runnable
 	private int y = 10;		
 	private int size = 5;
 	
+	private Random random;
+	
 	private boolean right = false;
 	private boolean left = false;
 	private boolean up = false;
 	private boolean down = false;
+	
+	private Food apple;
+	private ArrayList<Food> apples;
 	
 	private int ticks = 0;
 	private int tickDifficulty = 600000;
@@ -39,6 +44,7 @@ public class Screen extends JPanel implements Runnable
 		addKeyListener(key);
 		setPreferredSize( new Dimension(width,height));
 		
+		random = new Random();
 		
 		snake = new ArrayList<SnakePart>();
 		
@@ -51,6 +57,25 @@ public class Screen extends JPanel implements Runnable
 		{
 			body = new SnakePart(x, y, 10);
 			snake.add(body);
+		}
+		
+		if(apples.size() == 0)
+		{
+			int x = random.nextInt(127);
+			int y = random.nextInt(71);
+			
+			apple = new Food(x,y,10);
+			apples.add(apple);
+		}
+		
+		for(int index = 0; index < apples.size(); index ++) 
+		{
+			if(x == apples.get(index).getX() && y == apples.get(index).getY())
+			{
+				size++;
+				apples.remove(index);
+				index--;
+			}
 		}
 		
 		ticks++;
@@ -92,6 +117,10 @@ public class Screen extends JPanel implements Runnable
 		for(int index = 0; index < snake.size(); index++)
 		{
 			snake.get(index).draw(graphics);
+		}
+		for(int index = 0; index < apples.size(); index++)
+		{
+			apples.get(index).draw(graphics);
 		}
 	}
 	
