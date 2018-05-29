@@ -34,12 +34,16 @@ public class Screen extends JPanel implements Runnable
 		if(snake.size() == 0)
 		{
 			body = new SnakePart(x, y, 10);
+			snake.add(body);
 		}
 	}
 	
 	public void paint(Graphics graphics)
 	{
-
+		for(int index = 0; index < snake.size(); index++)
+		{
+			snake.get(index).draw(graphics);
+		}
 	}
 	
 	public void start()

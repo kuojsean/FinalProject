@@ -25,6 +25,6 @@ public class SnakePart
 		graphics.setColor(Color.BLACK);
 		graphics.fillRect(x * width,  y * height,  width,  height);
 		graphics.setColor(Color.GREEN);
-		graphics.fillRect(x* width + 2, y* height + 2, width, height);
+		graphics.fillRect(x* width + 2, y* height + 2, width - 4, height - 4);
 	}
 }
