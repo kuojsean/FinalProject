@@ -49,6 +49,8 @@ public class Screen extends JPanel implements Runnable
 		addKeyListener(key);
 		setPreferredSize( new Dimension(width,height));
 		
+		display = new PopupDisplay();
+		
 		random = new Random();
 		
 		snake = new ArrayList<SnakePart>();
@@ -162,19 +164,10 @@ public class Screen extends JPanel implements Runnable
 	public void stop()
 	{
 		running = false;
-		try
-		{
-			thread.join();
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+		thread.interrupt();
 		
 		display.displayText("Game Over");
 		display.displayText("Your Score is: " + score);
-		score = 0;
-		tickDifficulty = 600000;
 	}
 	
 	
