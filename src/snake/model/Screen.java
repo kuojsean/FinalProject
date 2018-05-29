@@ -83,8 +83,27 @@ public class Screen extends JPanel implements Runnable
 				size++;
 				apples.remove(index);
 				index--;
-				tickDifficulty -= 500;
 				score ++;
+				if(tickDifficulty > 300000)
+				{
+					tickDifficulty -= 20000;
+				}
+				else if (tickDifficulty > 150000)
+				{
+					tickDifficulty -= 10000;
+				}
+				else if(tickDifficulty > 50000)
+				{
+					tickDifficulty -= 5000;
+				}
+				else if(tickDifficulty > 10000)
+				{
+					tickDifficulty -= 2000;
+				}
+				else
+				{
+					tickDifficulty -= 500;
+				}
 			}
 		}
 		
