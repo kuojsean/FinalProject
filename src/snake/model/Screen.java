@@ -20,6 +20,13 @@ public class Screen extends JPanel implements Runnable
 	private int y = 10;		
 	private int size = 5;
 	
+	private boolean right = false;
+	private boolean left = false;
+	private boolean up = false;
+	private boolean down = false;
+	
+	private int ticks = 0;
+	
 	public Screen()
 	{
 		setPreferredSize( new Dimension(width,height));
@@ -35,6 +42,27 @@ public class Screen extends JPanel implements Runnable
 		{
 			body = new SnakePart(x, y, 10);
 			snake.add(body);
+		}
+		
+		ticks++;
+		if (ticks > 250000)
+		{
+			if(right)
+			{
+				x++;
+			}
+			if(left)
+			{
+				x--;
+			}
+			if(up)
+			{
+				y++;
+			}
+			if(down)
+			{
+				y--;
+			}
 		}
 	}
 	
